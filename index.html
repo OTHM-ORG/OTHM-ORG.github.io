@@ -2,21 +2,26 @@
   <head>
      <link rel="stylesheet" type="text/css" href="author-box.css">
     <style>
-      body {
-        background-color: #337382;
-      }
-      h1 {
-	text-align: center;
-	font-family: sans-serif;
-      }
-      footer.common-creatives {
-        background-color: grey;
-        padding: 10px;
-        border-radius: 25px;
-	margin: 10px 25px;
-	margin-top: 50px;
-      }
-  
+       body {
+         background-color: #337382;
+       }
+       h1 {
+	 text-align: center;
+	 font-family: sans-serif;
+       }
+       footer.common-creatives {
+	 background-color: grey;
+	 padding: 10px;
+	 border-radius: 25px;
+	 margin: 10px 25px;
+	 margin-top: 50px;
+       }
+       #contents {
+	 background-color: SpringGreen;
+	 border-radius: 10px;
+	 padding: 10px;
+	 margin-right: 75%;
+       }
     </style>
   </head>
   <body>
@@ -35,15 +40,28 @@
 		padding: 10px;
 		border-radius: 25px;
 		margin: 10px 50px;
-		text-align: center;
 		">
-      <p1>
+      <p style="text-align: center">
 	<span><em>"Oh Threehundred Hanjimono Mizzle"</em></span>
-      </p1>
-      <p style="text-align: left">
+      </p>
+      <p>
 	It could mean a light rain of puzzles at some direction or nothing at all.
       </p>
-
+      <div id="contents">
+	<p>Contents</p>
+	<a href="#about"> 1. About</a>
+      </div>
+      <div id="about">
+	<h3>About</h3>
+	<hr>
+	Othm is a set of libraries written in C with the goal of providing useful
+	capabilities like what you might find implemented in a programming language
+	or odd one off research project. Other libraries that might be present are
+	utilities that well documented or well written versions do not exist or at
+	least do not exist in some form that might be useful enough to make a separate
+	library for. Othm is also interfaces to make full use of said libraries such
+	as a viewer for neural networks or program state.
+      </div>
       <!-- Common creatives stuff -->
       <footer class="common-creatives">
 	<a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
