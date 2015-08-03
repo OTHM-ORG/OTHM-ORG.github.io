@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html>
-  <body>
+  <body id="spinny-sphere-body">
     <script src="js/three.min.js"></script>
     <script>
+      // from: http://learningthreejs.com/blog/2013/09/16/how-to-make-the-earth-in-webgl/
       // renderer
       var renderer = new THREE.WebGLRenderer({ alpha: true });
       renderer.setSize(window.innerWidth, window.innerHeight);
@@ -26,21 +27,52 @@
 						    specular: 0x555555, shininess: 12 } );
       // material.bumpMap = THREE.ImageUtils.loadTexture('textures/earthbump1k.jpg');
       material.bumpMap = THREE.ImageUtils.loadTexture('textures/sigmoid.png');
-      
       material.bumpScale = 500;
-      
-      // sphere
+
+      // geometry
       // the first argument of THREE.SphereGeometry is the radius, the second argument is
       // the segmentsWidth, and the third argument is the segmentsHeight.  Increasing the 
       // segmentsWidth and segmentsHeight will yield a more perfect circle, but will degrade
       // rendering performance
-      var sphere = new THREE.Mesh(new THREE.SphereGeometry(75, 75, 50), material);
+      var geometry = new THREE.SphereGeometry(75, 75, 50);
+
+      // sphere
+      var sphere = new THREE.Mesh(geometry, material);
       sphere.overdraw = true;
       scene.add(sphere);
-      
+
+      document.getElementById("spinny-sphere-body").onclick = function() {
+	  scene.remove(light);
+	  light.intensity = 1;
+	  light.position.set(100, 20, 100);
+	  scene.add(light);
+
+	  scene.remove(sphere);
+
+	  var world_material = new THREE.MeshPhongMaterial();
+	  world_material.map = THREE.ImageUtils.loadTexture('textures/world/earthmap1k.jpg');
+	  world_material.bumpMap = THREE.ImageUtils.loadTexture('textures/world/earthbump1k.jpg');
+	  world_material.bumpScale = 3;
+	  world_material.specularMap = THREE.ImageUtils.loadTexture('textures/world/earthspec1k.jpg');
+	  world_material.specular = new THREE.Color('grey');
+
+	  sphere.material = world_material;
+	  scene.add(sphere);
+
+	  var cloud_geometry = new THREE.SphereGeometry(75.1, 75, 50);
+	  var cloud_material  = new THREE.MeshPhongMaterial({
+	      map     : THREE.ImageUtils.loadTexture('textures/world/hello-world.png'),
+	      side        : THREE.DoubleSide,
+	      opacity     : 0.4,
+	      transparent : true,
+	      depthWrite  : false,
+	  })
+	  var cloudMesh = new THREE.Mesh(cloud_geometry, cloud_material);
+	  sphere.add(cloudMesh);
+      }
       function render() {
 	  requestAnimationFrame(render);
-	  sphere.rotation.y += 0.01;
+	  sphere.rotation.y -= 0.01;
 	  renderer.render(scene, camera);
       }
       render();
